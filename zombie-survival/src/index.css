@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-zinc-100 font-mono antialiased;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #18181b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  .hud-glow {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.15), inset 0 0 15px rgba(245, 158, 11, 0.05);
+  }
+  .panel {
+    @apply bg-zinc-900/80 border border-zinc-700/50 rounded-lg backdrop-blur-sm;
+  }
+  .btn-primary {
+    @apply px-6 py-3 bg-amber-600 hover:bg-amber-500 text-zinc-950 font-bold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-amber-600/25 active:scale-95 cursor-pointer;
+  }
+  .btn-danger {
+    @apply px-6 py-3 bg-red-700 hover:bg-red-600 text-white font-bold rounded-lg transition-all duration-200 active:scale-95 cursor-pointer;
+  }
+  .btn-secondary {
+    @apply px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 font-medium rounded-lg transition-all duration-200 active:scale-95 cursor-pointer;
+  }
+  .stat-bar {
+    @apply h-2.5 rounded-full transition-all duration-500 ease-out;
+  }
+
+  @keyframes scan-line {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+  .scanline::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(245,158,11,0.08), transparent);
+    animation: scan-line 8s linear infinite;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+
+  /* HUD Feedback Animations */
+  @keyframes hud-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  .animate-hud-shake {
+    animation: hud-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  @keyframes damage-flash {
+    0% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.7), inset 0 0 20px rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.8); }
+    100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.15), inset 0 0 15px rgba(245, 158, 11, 0.05); }
+  }
+  .hud-damage-glow {
+    animation: damage-flash 1s ease-out forwards;
+  }
+
+  @keyframes reward-flash {
+    0% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.7), inset 0 0 20px rgba(16, 185, 129, 0.3); border-color: rgba(16, 185, 129, 0.8); }
+    100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.15), inset 0 0 15px rgba(245, 158, 11, 0.05); }
+  }
+  .hud-reward-glow {
+    animation: reward-flash 1s ease-out forwards;
+  }
+
+  /* Radar ping animation for sector scan */
+  @keyframes radar-ripple {
+    0% { transform: scale(0.9); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+  .animate-radar-ping {
+    animation: radar-ripple 0.8s ease-out infinite;
+  }
+
+  /* Zombie Background Animations */
+  @keyframes zombie-shamble-1 {
+    0% { transform: translateX(-60px) translateY(0); }
+    25% { transform: translateX(25vw) translateY(-2px); }
+    50% { transform: translateX(50vw) translateY(1px); }
+    75% { transform: translateX(75vw) translateY(-2px); }
+    100% { transform: translateX(calc(100vw + 60px)) translateY(0); }
+  }
+
+  @keyframes zombie-shamble-2 {
+    0% { transform: translateX(-80px) translateY(-1px); }
+    50% { transform: translateX(50vw) translateY(2px); }
+    100% { transform: translateX(calc(100vw + 80px)) translateY(-1px); }
+  }
+
+  @keyframes searchlight-sweep {
+    0% { transform: rotate(-32deg); opacity: 0.18; }
+    50% { transform: rotate(32deg); opacity: 0.38; }
+    100% { transform: rotate(-32deg); opacity: 0.18; }
+  }
+
+  @keyframes ash-float {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    20% { opacity: 0.5; }
+    80% { opacity: 0.4; }
+    100% { transform: translateY(-90vh) translateX(35px); opacity: 0; }
+  }
+}
