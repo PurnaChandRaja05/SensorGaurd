@@ -1,5 +1,7 @@
 # 🧟‍♂️ Zombie Survival: Survive Using Data (SensorGuard)
 
+🎮 Play the Game: https://sensorgaurd.harishpannuru20.workers.dev/
+
 > A story-driven, interactive educational web application designed to teach **Introduction to Data Science & Engineering (IDSE)** core concepts through 5 playable, high-stakes tactical survival missions.
 
 ---
